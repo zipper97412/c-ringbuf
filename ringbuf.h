@@ -240,4 +240,12 @@ ringbuf_write(int fd, ringbuf_t rb, size_t count);
 void *
 ringbuf_copy(ringbuf_t dst, ringbuf_t src, size_t count);
 
+
+/*
+ * functions added to my needs, not part of ringbuf original library
+ */
+
+int ringbuf_memwrite(ringbuf_t rb, size_t* src, size_t offset, size_t len);
+int ringbuf_memread(ringbuf_t rb, size_t* dst, size_t offset, size_t len);
+
 #endif /* INCLUDED_RINGBUF_H */

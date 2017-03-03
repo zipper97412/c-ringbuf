@@ -345,3 +345,29 @@ ringbuf_copy(ringbuf_t dst, ringbuf_t src, size_t count)
 
     return dst->head;
 }
+
+size_t min(size_t a, size_t b) {
+    if(a<b)
+        return a;
+    else
+        return b;
+}
+
+
+int ringbuf_memwrite(ringbuf_t rb, size_t* src, size_t offset, size_t len) 
+{
+    src = &(src[offset]);
+    size_t nbToWrite = min(ringbuf_bytes_free(rb), len);
+    ringbuf_memcpy_into(rb, (const void*)src, nbToWrite);
+    return nbToWrite;
+}
+
+int ringbuf_memread(ringbuf_t rb, size_t* dst, size_t offset, size_t len) 
+{
+    dst = &(dst[offset]);
+    size_t nbToRead = min(ringbuf_bytes_used(rb), len);
+    ringbuf_memcpy_from((void*)dst, rb, nbToRead);
+    return nbToRead;
+}
+
+
